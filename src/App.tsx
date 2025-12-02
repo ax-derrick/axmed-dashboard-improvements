@@ -7,7 +7,6 @@ import {
   TeamOutlined,
   FileTextOutlined,
   QuestionCircleOutlined,
-  MenuOutlined,
   DownOutlined,
   ClockCircleOutlined,
   EditOutlined,
