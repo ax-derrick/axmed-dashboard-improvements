@@ -48,35 +48,51 @@ function BuyerDashboard() {
     const script = document.createElement('script');
     script.src = METABASE_RESIZER_URL;
     script.async = true;
+    script.onload = () => {
+      // Initialize iframeResizer on the iframe once the script is loaded
+      if (iframeRef.current && (window as any).iFrameResize) {
+        (window as any).iFrameResize({ checkOrigin: false }, iframeRef.current);
+      }
+    };
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 
   const handleIframeLoad = () => {
     setIframeLoading(false);
+    // Also try to initialize iframeResizer when iframe loads
+    if (iframeRef.current && (window as any).iFrameResize) {
+      (window as any).iFrameResize({ checkOrigin: false }, iframeRef.current);
+    }
   };
 
   return (
     <div className="buyer-dashboard">
       {/* Welcome Header Card */}
-      <Card className="welcome-header-card buyer-welcome-card" style={{ marginBottom: 24 }} bodyStyle={{ padding: '32px 40px' }}>
-        <Row align="middle" justify="space-between">
-          <Col>
-            <Title level={3} style={{ margin: 0, marginBottom: 8 }}>
+      <Card
+        className="buyer-welcome-card-compact"
+        style={{ marginBottom: 24, background: '#fff' }}
+        bodyStyle={{ padding: '20px 24px' }}
+      >
+        <Row align="middle" justify="space-between" gutter={16}>
+          <Col flex="1">
+            <Title level={4} style={{ margin: 0, marginBottom: 4 }}>
               Welcome back, Derrick!
             </Title>
-            <Text type="secondary" style={{ fontSize: 15, maxWidth: 500, display: 'block' }}>
+            <Text type="secondary" style={{ fontSize: 14 }}>
               We partner exclusively with authorized, high-quality pharmaceutical companies and certified caregivers to accelerate access to medicines.
             </Text>
           </Col>
           <Col className="welcome-illustration">
             <img
-              src="https://axmed-demo-static-files.s3.eu-west-1.amazonaws.com/uploads/buyer-dashboard-illustration.png"
+              src="https://app-demo.axmed.com/_next/image?url=%2Fimages%2Fdashboard-greeting.png&w=256&q=75"
               alt="Dashboard illustration"
-              style={{ height: 140 }}
+              style={{ height: 100 }}
               onError={(e) => {
                 e.currentTarget.style.display = 'none';
               }}
@@ -135,10 +151,10 @@ function BuyerDashboard() {
       {/* Marketplace Pulse Section */}
       <Card
         title="Marketplace Pulse"
-        extra={<Link to="/buyer/analytics"><Button type="link" size="small" style={{ padding: 0 }}>View full analytics <RightOutlined /></Button></Link>}
+        extra={<Link to="/analytics?r=buyer"><Button type="link" size="small" style={{ padding: 0 }}>View full analytics <RightOutlined /></Button></Link>}
         style={{ marginBottom: 12 }}
         bodyStyle={{ padding: 0 }}>
-        <div style={{ position: 'relative', minHeight: 400, overflow: 'hidden', borderRadius: 8 }}>
+        <div style={{ position: 'relative', overflow: 'hidden', borderRadius: 8 }}>
           {iframeLoading && (
             <div className="iframe-loading">
               <Spin size="large" />
@@ -148,7 +164,7 @@ function BuyerDashboard() {
             ref={iframeRef}
             src={DASHBOARD_SNAPSHOT_URL}
             width="100%"
-            style={{ border: 'none', borderRadius: 8, display: 'block', minHeight: 400 }}
+            style={{ border: 'none', borderRadius: 8, display: 'block', minHeight: 200 }}
             onLoad={handleIframeLoad}
             title="Marketplace Pulse"
           />

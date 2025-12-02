@@ -7,7 +7,6 @@ import {
   TeamOutlined,
   FileTextOutlined,
   QuestionCircleOutlined,
-  BarChartOutlined,
   MenuOutlined,
   DownOutlined,
   ClockCircleOutlined,
@@ -16,10 +15,10 @@ import {
   DownloadOutlined,
   SearchOutlined,
   FilterOutlined,
-  HeartOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   SwapOutlined,
+  ShoppingCartOutlined,
 } from '@ant-design/icons';
 import { HashRouter, Routes, Route, useNavigate, useLocation, useSearchParams } from 'react-router-dom';
 import SupplierDashboard from './pages/supplier/Dashboard';
@@ -197,16 +196,12 @@ function AppLayout() {
     }, 800);
   };
 
-  const menuItems = [
+  // Supplier sidebar menu items (Analytics now accessed via Marketplace Pulse)
+  const supplierMenuItems = [
     {
       key: '/',
       icon: <HomeOutlined />,
       label: 'Dashboard',
-    },
-    {
-      key: '/analytics',
-      icon: <BarChartOutlined />,
-      label: 'Analytics',
     },
     {
       key: '/portfolio',
@@ -234,183 +229,201 @@ function AppLayout() {
     navigate(`${key}?r=${userRole}`);
   };
 
-  return (
+  // Buyer Layout Component
+  const BuyerLayout = () => (
     <Layout style={{ minHeight: '100vh' }}>
-      {/* Role Switching Overlay */}
-      {switchingRole && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(255, 255, 255, 0.9)',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 9999,
-          gap: 16,
-        }}>
-          <Spin size="large" />
-          <Text style={{ fontSize: 16, color: '#595959' }}>
-            Switching to {switchingRole.charAt(0).toUpperCase() + switchingRole.slice(1)}...
-          </Text>
-        </div>
-      )}
-      {/* Sidebar - Hidden on mobile */}
-      <Sider
-        theme="light"
-        width={200}
-        collapsedWidth={64}
-        collapsed={sidebarCollapsed}
-        className="desktop-sider"
-        style={{
-          borderRight: '1px solid #f0f0f0',
-          position: 'fixed',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          overflow: 'auto',
-          zIndex: 100,
-          display: 'flex',
-          flexDirection: 'column',
-          transition: 'all 0.2s ease',
-        }}
-      >
-        {/* Logo */}
-        <div className={`logo ${sidebarCollapsed ? 'collapsed' : ''}`}>
-          {sidebarCollapsed ? (
-            <span className="logo-collapsed-text">A</span>
-          ) : (
-            <img src={`${BASE_URL}axmed-logo.png`} alt="Axmed" height="28" />
-          )}
-        </div>
-
-        {/* Navigation Menu */}
-        <Menu
-          mode="inline"
-          selectedKeys={[location.pathname]}
-          items={menuItems}
-          onClick={handleMenuClick}
-          style={{ borderRight: 'none', flex: 1 }}
-        />
-
-        {/* Impact Report Card - Above divider */}
-        <a
-          href="https://axmed.com/impact-report"
-          target="_blank"
-          rel="noopener noreferrer"
-          className={`impact-report-card ${sidebarCollapsed ? 'collapsed' : ''}`}
-        >
-          <div className="impact-report-icon">
-            <HeartOutlined />
+      {/* Buyer Top Navigation Header */}
+      <Header className="buyer-header">
+        <div className="buyer-header-content">
+          {/* Left: Logo + Nav Links */}
+          <div className="buyer-header-left">
+            <img src={`${BASE_URL}axmed-logo.png`} alt="Axmed" height="28" className="buyer-logo" />
+            <nav className="buyer-nav-links">
+              <span
+                className={`buyer-nav-link ${location.pathname === '/' ? 'active' : ''}`}
+                onClick={() => navigate(`/?r=buyer`)}
+              >
+                Dashboard
+              </span>
+              <span
+                className={`buyer-nav-link ${location.pathname === '/catalogue' ? 'active' : ''}`}
+                onClick={() => navigate(`/catalogue?r=buyer`)}
+              >
+                Catalogue
+              </span>
+              <span
+                className={`buyer-nav-link ${location.pathname === '/my-orders' ? 'active' : ''}`}
+                onClick={() => navigate(`/my-orders?r=buyer`)}
+              >
+                My Orders
+              </span>
+            </nav>
           </div>
-          {!sidebarCollapsed && (
-            <div className="impact-report-content">
-              <span className="impact-report-title">Impact Report</span>
-              <span className="impact-report-subtitle">See how Axmed is making a difference</span>
+          {/* Right: Support, Draft Order, Profile */}
+          <div className="buyer-header-right">
+            <a
+              href="https://form.asana.com/?k=syQQO9QJls5IRuUzlbUDTQ&d=1207382794046065"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="buyer-header-link"
+            >
+              <QuestionCircleOutlined />
+              <span>Support</span>
+            </a>
+            <div className="buyer-header-link" style={{ cursor: 'pointer' }}>
+              <ShoppingCartOutlined />
+              <span>Draft Order</span>
             </div>
-          )}
-        </a>
-
-        {/* Bottom section of sidebar */}
-        <div className={`sidebar-bottom ${sidebarCollapsed ? 'collapsed' : ''}`}>
-          {/* Switch Role Button */}
-          <div
-            className={`sidebar-switch-role ${sidebarCollapsed ? 'collapsed' : ''}`}
-            onClick={() => setUserRole(userRole === 'supplier' ? 'buyer' : 'supplier')}
-          >
-            <SwapOutlined />
-            {!sidebarCollapsed && <span>Switch to {userRole === 'supplier' ? 'Buyer' : 'Supplier'}</span>}
-          </div>
-
-          {/* Support Link */}
-          <a
-            href="https://form.asana.com/?k=syQQO9QJls5IRuUzlbUDTQ&d=1207382794046065"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`sidebar-support-link ${sidebarCollapsed ? 'collapsed' : ''}`}
-          >
-            <QuestionCircleOutlined />
-            {!sidebarCollapsed && <span>Support</span>}
-          </a>
-
-          {/* Profile Dropdown */}
-          <div className={`sidebar-profile ${sidebarCollapsed ? 'collapsed' : ''}`}>
             <Dropdown
               menu={{
                 items: [
                   { key: 'profile', label: 'Profile' },
                   { key: 'settings', label: 'Settings' },
                   { type: 'divider' },
+                  {
+                    key: 'switch',
+                    label: 'Switch to Supplier',
+                    onClick: () => setUserRole('supplier')
+                  },
+                  { type: 'divider' },
                   { key: 'logout', label: 'Logout' },
                 ] as MenuProps['items'],
               }}
               trigger={['click']}
-              placement="topRight"
             >
-              <Space className={`profile-trigger sidebar-profile-trigger ${sidebarCollapsed ? 'collapsed' : ''}`}>
-                <Avatar
-                  src="https://axmed-demo-static-files.s3.eu-west-1.amazonaws.com/uploads/CIPLA-logo381353.png"
-                  size={32}
-                />
-                {!sidebarCollapsed && (
-                  <>
-                    <div className="profile-info">
-                      <span className="org-name">Cipla Pharmaceuticals</span>
-                      <span className="role-label" style={{ fontSize: 11, color: '#8c8c8c', textTransform: 'capitalize' }}>{userRole}</span>
-                    </div>
-                    <DownOutlined className="caret-icon" />
-                  </>
-                )}
+              <Space className="buyer-profile-trigger">
+                <Avatar style={{ backgroundColor: '#392AB0' }}>A</Avatar>
+                <span className="buyer-profile-name">Axmed</span>
+                <DownOutlined style={{ fontSize: 10 }} />
               </Space>
             </Dropdown>
           </div>
-
         </div>
-      </Sider>
+      </Header>
 
-      <Layout className="main-layout" style={{ marginLeft: sidebarCollapsed ? 64 : 200, background: '#fafafa', transition: 'margin-left 0.2s ease' }}>
-        {/* Header */}
-        <Header className="header">
-          <div className="header-content">
-            {/* Desktop: Collapse toggle */}
-            <Button
-              type="text"
-              icon={sidebarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
-              className="sidebar-toggle-btn desktop-only"
-            />
-            {/* Mobile: Menu toggle + Logo */}
-            <div className="mobile-header-left">
-              <Button
-                type="text"
-                icon={<MenuOutlined />}
-                onClick={() => setMobileMenuOpen(true)}
-                className="mobile-menu-toggle"
-              />
-              <img src={`${BASE_URL}axmed-logo.png`} alt="Axmed" height="24" className="mobile-logo" />
-            </div>
-            {/* Right side menu items */}
-            <Space size="large" className="header-menu">
-              <div className="draft-bids-btn" onClick={() => setDrawerOpen(true)} style={{ cursor: 'pointer' }}>
-                <FileTextOutlined className="draft-bids-icon" />
-                <span className="draft-bids-text">Draft Bids</span>
-                <Badge count={totalBidsCount} size="small" className="draft-bids-badge" />
-              </div>
-            </Space>
+      {/* Main Content Area */}
+      <Content className="buyer-content">
+        <Routes>
+          <Route path="/" element={<BuyerDashboard />} />
+          <Route path="/analytics" element={<BuyerAnalytics />} />
+        </Routes>
+      </Content>
+    </Layout>
+  );
+
+  // Supplier Layout Component with blue top header + sidebar
+  const SupplierLayout = () => (
+    <Layout style={{ minHeight: '100vh' }}>
+      {/* Blue Top Header */}
+      <Header className="supplier-top-header">
+        <div className="supplier-top-header-content">
+          {/* Left: Logo */}
+          <div className="supplier-top-header-left">
+            <img src={`${BASE_URL}axmed-logo.png`} alt="Axmed" height="28" className="supplier-logo" />
           </div>
-        </Header>
+          {/* Right: Support, Draft Bids, Profile */}
+          <div className="supplier-top-header-right">
+            <a
+              href="https://form.asana.com/?k=syQQO9QJls5IRuUzlbUDTQ&d=1207382794046065"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="supplier-header-link"
+            >
+              <QuestionCircleOutlined />
+              <span>Support</span>
+            </a>
+            <div className="supplier-header-link" onClick={() => setDrawerOpen(true)} style={{ cursor: 'pointer' }}>
+              <FileTextOutlined />
+              <span>Draft Bids</span>
+              <Badge count={totalBidsCount} size="small" style={{ marginLeft: 4 }} />
+            </div>
+            <Dropdown
+              menu={{
+                items: [
+                  { key: 'profile', label: 'Profile' },
+                  { key: 'settings', label: 'Settings' },
+                  { type: 'divider' },
+                  {
+                    key: 'switch',
+                    label: 'Switch to Buyer',
+                    onClick: () => setUserRole('buyer')
+                  },
+                  { type: 'divider' },
+                  { key: 'logout', label: 'Logout' },
+                ] as MenuProps['items'],
+              }}
+              trigger={['click']}
+            >
+              <Space className="supplier-profile-trigger">
+                <Avatar
+                  src="https://axmed-demo-static-files.s3.eu-west-1.amazonaws.com/uploads/CIPLA-logo381353.png"
+                  size={32}
+                  style={{ border: '2px solid rgba(255,255,255,0.3)' }}
+                />
+                <span className="supplier-profile-name">Cipla Pharmaceuticals</span>
+                <DownOutlined style={{ fontSize: 10, color: 'rgba(255,255,255,0.85)' }} />
+              </Space>
+            </Dropdown>
+          </div>
+        </div>
+      </Header>
+
+      <Layout>
+        {/* Sidebar - Below top header */}
+        <Sider
+          theme="light"
+          width={160}
+          collapsedWidth={64}
+          collapsed={sidebarCollapsed}
+          className="supplier-sider desktop-sider"
+          style={{
+            borderRight: '1px solid #f0f0f0',
+            position: 'fixed',
+            left: 0,
+            top: 64,
+            bottom: 0,
+            overflow: 'auto',
+            zIndex: 99,
+            display: 'flex',
+            flexDirection: 'column',
+            transition: 'all 0.2s ease',
+            background: '#fff',
+          }}
+        >
+          {/* Collapse Toggle */}
+          <div className="sidebar-collapse-toggle" onClick={() => setSidebarCollapsed(!sidebarCollapsed)}>
+            {sidebarCollapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          </div>
+
+          {/* Navigation Menu */}
+          <Menu
+            mode="inline"
+            selectedKeys={[location.pathname]}
+            items={supplierMenuItems}
+            onClick={handleMenuClick}
+            style={{ borderRight: 'none', flex: 1 }}
+          />
+        </Sider>
 
         {/* Main Content Area */}
-        <Content className="content">
-          <Routes>
-            <Route path="/" element={userRole === 'supplier' ? <SupplierDashboard /> : <BuyerDashboard />} />
-            <Route path="/analytics" element={userRole === 'supplier' ? <SupplierAnalytics /> : <BuyerAnalytics />} />
-          </Routes>
+        <Content
+          className="supplier-content"
+          style={{
+            marginLeft: sidebarCollapsed ? 64 : 160,
+            marginTop: 64,
+            background: '#f8f9fc',
+            minHeight: 'calc(100vh - 64px)',
+            padding: 24,
+            transition: 'margin-left 0.2s ease'
+          }}
+        >
+          <div style={{ maxWidth: 1000, margin: '0 auto' }}>
+            <Routes>
+              <Route path="/" element={<SupplierDashboard />} />
+              <Route path="/analytics" element={<SupplierAnalytics />} />
+            </Routes>
+          </div>
         </Content>
-
       </Layout>
 
       {/* Draft Bids Drawer */}
@@ -570,32 +583,13 @@ function AppLayout() {
         <Menu
           mode="inline"
           selectedKeys={[location.pathname]}
-          items={menuItems}
+          items={supplierMenuItems}
           onClick={({ key }) => {
             navigate(`${key}?r=${userRole}`);
             setMobileMenuOpen(false);
           }}
           style={{ borderRight: 'none' }}
         />
-
-        {/* Impact Report Card */}
-        <div style={{ padding: '16px 12px' }}>
-          <a
-            href="https://axmed.com/impact-report"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="impact-report-card"
-            style={{ position: 'relative', bottom: 'auto', left: 'auto', right: 'auto', margin: 0 }}
-          >
-            <div className="impact-report-icon">
-              <HeartOutlined />
-            </div>
-            <div className="impact-report-content">
-              <span className="impact-report-title">Impact Report</span>
-              <span className="impact-report-subtitle">See how Axmed is making a difference</span>
-            </div>
-          </a>
-        </div>
 
         {/* Bottom section */}
         <div className="mobile-drawer-bottom">
@@ -649,6 +643,35 @@ function AppLayout() {
         </div>
       </Drawer>
     </Layout>
+  );
+
+  // Main return - conditionally render based on role
+  return (
+    <>
+      {/* Role Switching Overlay */}
+      {switchingRole && (
+        <div style={{
+          position: 'fixed',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          zIndex: 9999,
+          gap: 16,
+        }}>
+          <Spin size="large" />
+          <Text style={{ fontSize: 16, color: '#595959' }}>
+            Switching to {switchingRole.charAt(0).toUpperCase() + switchingRole.slice(1)}...
+          </Text>
+        </div>
+      )}
+      {userRole === 'buyer' ? <BuyerLayout /> : <SupplierLayout />}
+    </>
   );
 }
 

@@ -1,9 +1,11 @@
-import { Typography, Card, Row, Col, Spin, Segmented } from 'antd';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import { Typography, Card, Row, Col, Button, Spin, Segmented, Alert } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 
 const { Title, Text } = Typography;
 
-// Metabase embed URLs (tokens expire 2025-12-05)
+// Metabase embed URLs (same as buyer analytics)
 const MARKETPLACE_IFRAME_URL =
   'https://axmed.metabaseapp.com/embed/dashboard/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyZXNvdXJjZSI6eyJkYXNoYm9hcmQiOjE4NDl9LCJwYXJhbXMiOnt9LCJleHAiOjE3NjQ5Mzk2MjMsImlhdCI6MTc2NDMzNDgyMn0.J1RtFbwp15EP5mCdDJs77HpVGZYmt6s1Wt8AeDvXtR8#bordered=false&titled=false&refresh=3600&downloads=false';
 
@@ -15,7 +17,7 @@ const METABASE_RESIZER_URL = 'https://axmed.metabaseapp.com/app/iframeResizer.js
 
 type DataView = 'marketplace' | 'my-country';
 
-// KPI data matching Dashboard's rfq-metric-card style
+// KPI data for supplier analytics
 const kpiData = [
   { title: 'My Total Revenue', value: '$1,234,567' },
   { title: 'My Active Tenders', value: '42' },
@@ -23,7 +25,8 @@ const kpiData = [
   { title: 'My Pending Bids', value: '12' },
 ];
 
-function Analytics() {
+function SupplierAnalytics() {
+  const navigate = useNavigate();
   const [iframeLoading, setIframeLoading] = useState(true);
   const [dataView, setDataView] = useState<DataView>('marketplace');
   const iframeRef = useRef<HTMLIFrameElement>(null);
@@ -54,12 +57,47 @@ function Analytics() {
     }
   };
 
+  const handleBack = () => {
+    navigate('/?r=supplier');
+  };
+
   return (
-    <div className="analytics-page">
-      {/* Header with title and segmented control */}
+    <div className="supplier-analytics-page">
+      {/* Back Button */}
+      <Button
+        type="text"
+        icon={<ArrowLeftOutlined />}
+        onClick={handleBack}
+        className="back-button"
+        style={{ paddingLeft: 0, marginBottom: 16 }}
+      >
+        Back to Dashboard
+      </Button>
+
+      {/* Info Banner */}
+      <Alert
+        message={
+          <span>
+            More granular analytics are coming soon.{' '}
+            <a
+              href="https://form.asana.com/?k=syQQO9QJls5IRuUzlbUDTQ&d=1207382794046065"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontWeight: 500 }}
+            >
+              Let us know what you'd like to see
+            </a>
+          </span>
+        }
+        type="info"
+        showIcon
+        style={{ marginBottom: 12 }}
+      />
+
+      {/* Header Card with Title and Tabs */}
       <Card style={{ marginBottom: 12 }} bodyStyle={{ padding: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-          <Title level={4} style={{ margin: 0 }}>Analytics</Title>
+          <Title level={4} style={{ margin: 0 }}>Marketplace Analytics</Title>
           <Segmented
             options={[
               { label: 'Marketplace Data', value: 'marketplace' },
@@ -106,4 +144,4 @@ function Analytics() {
   );
 }
 
-export default Analytics;
+export default SupplierAnalytics;

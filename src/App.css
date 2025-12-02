@@ -1131,8 +1131,8 @@
 
 .quickstart-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(79, 70, 229, 0.15);
-  border-color: #392AB0;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  border-color: #e8e8e8;
 }
 
 .quickstart-card:active {
@@ -1550,10 +1550,182 @@ a:has(.quickstart-card):hover {
   }
 }
 
+/* ============ BUYER TOP NAVIGATION STYLES ============ */
+
+.buyer-header {
+  background: #392AB0;
+  padding: 0 24px;
+  height: 64px;
+  line-height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(57, 42, 176, 0.15);
+}
+
+.buyer-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.buyer-header-left {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.buyer-logo {
+  filter: brightness(0) invert(1);
+}
+
+.buyer-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.buyer-nav-link {
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 500;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.buyer-nav-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.buyer-nav-link.active {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.buyer-header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.buyer-header-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-weight: 500;
+}
+
+.buyer-header-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.buyer-profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: all 0.2s;
+  background: transparent;
+}
+
+.buyer-profile-trigger:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.buyer-profile-name {
+  color: #fff;
+  font-weight: 500;
+}
+
+.buyer-profile-trigger .anticon {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.buyer-content {
+  background: #f8f9fc;
+  min-height: calc(100vh - 64px);
+  padding: 24px;
+}
+
+.buyer-content > div {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+/* Buyer mobile responsive */
+@media (max-width: 768px) {
+  .buyer-header {
+    padding: 0 16px;
+    height: 56px;
+    line-height: 56px;
+  }
+
+  .buyer-header-left {
+    gap: 16px;
+  }
+
+  .buyer-nav-links {
+    display: none;
+  }
+
+  .buyer-header-link span {
+    display: none;
+  }
+
+  .buyer-header-link {
+    padding: 8px;
+  }
+
+  .buyer-profile-name {
+    display: none;
+  }
+
+  .buyer-content {
+    padding: 16px;
+  }
+}
+
 /* ============ BUYER DASHBOARD STYLES ============ */
 
 .buyer-dashboard {
   padding-bottom: 24px;
+}
+
+/* ============ BUYER ANALYTICS STYLES ============ */
+
+.buyer-analytics-page {
+  padding-bottom: 24px;
+}
+
+.buyer-analytics-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.buyer-analytics-header .back-button {
+  color: #595959;
+  padding-left: 0;
+  font-weight: 500;
+}
+
+.buyer-analytics-header .back-button:hover {
+  color: #392AB0;
 }
 
 .buyer-welcome-card {
@@ -1573,8 +1745,8 @@ a:has(.quickstart-card):hover {
 }
 
 .quickstart-card:hover {
-  border-color: #392AB0;
-  box-shadow: 0 4px 12px rgba(57, 42, 176, 0.1);
+  border-color: #e8e8e8;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 
 .quickstart-card-disabled {
@@ -1634,6 +1806,197 @@ a:has(.quickstart-card):hover {
 
   .news-card .ant-card-cover > div {
     height: 100px !important;
+  }
+}
+
+/* ============ SUPPLIER TOP HEADER + SIDEBAR STYLES ============ */
+
+.supplier-top-header {
+  background: #392AB0 !important;
+  padding: 0 24px !important;
+  height: 64px !important;
+  line-height: 64px !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(57, 42, 176, 0.15);
+}
+
+.supplier-top-header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.supplier-top-header-left {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.supplier-logo {
+  filter: brightness(0) invert(1);
+  height: 28px;
+}
+
+.supplier-top-header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 100%;
+}
+
+.supplier-header-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: all 0.2s;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.supplier-header-link:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.supplier-profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 20px;
+  transition: all 0.2s;
+  background: transparent;
+  line-height: 1.5;
+}
+
+.supplier-profile-trigger:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.supplier-profile-name {
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Supplier Sidebar */
+.supplier-sider {
+  padding-top: 0;
+}
+
+.supplier-sider .ant-menu {
+  padding: 0 8px;
+}
+
+.supplier-sider .ant-menu-item {
+  margin: 4px 0;
+  padding-left: 12px !important;
+  border-radius: 8px;
+  height: 40px;
+  line-height: 40px;
+}
+
+.supplier-sider .ant-menu-inline-collapsed .ant-menu-item {
+  padding-left: 20px !important;
+}
+
+.sidebar-collapse-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  cursor: pointer;
+  color: #595959;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.sidebar-collapse-toggle:hover {
+  color: #392AB0;
+  background: #f5f5ff;
+}
+
+.impact-report-card-compact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  margin: 8px;
+  background: #fff5f5;
+  border-radius: 8px;
+  color: #595959;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.impact-report-card-compact:hover {
+  background: #ffebeb;
+  color: #ff4d4f;
+}
+
+/* Supplier content area */
+.supplier-content {
+  padding-bottom: 24px;
+}
+
+/* Supplier Dashboard Styles */
+.supplier-dashboard {
+  padding-bottom: 24px;
+}
+
+/* Supplier Analytics Page */
+.supplier-analytics-page {
+  padding-bottom: 24px;
+}
+
+/* Supplier mobile responsive */
+@media (max-width: 768px) {
+  .supplier-top-header {
+    padding: 0 16px !important;
+    height: 56px !important;
+    line-height: 56px !important;
+  }
+
+  .supplier-top-header-right {
+    gap: 8px;
+  }
+
+  .supplier-header-link span {
+    display: none;
+  }
+
+  .supplier-header-link {
+    padding: 8px;
+  }
+
+  .supplier-profile-name {
+    display: none;
+  }
+
+  .supplier-profile-trigger {
+    padding: 6px;
+  }
+
+  .supplier-sider {
+    display: none !important;
+  }
+
+  .supplier-content {
+    margin-left: 0 !important;
+    margin-top: 56px !important;
+    padding: 16px !important;
   }
 }
 
