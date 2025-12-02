@@ -1,9 +1,9 @@
 {
-  "name": "axmed-experiment",
+  "name": "axmed-dashboard-improvements",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://ax-derrick.github.io/axmed-experiment",
+  "homepage": "https://ax-derrick.github.io/axmed-dashboard-improvements",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
