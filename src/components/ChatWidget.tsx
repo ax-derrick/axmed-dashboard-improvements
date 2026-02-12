@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 
-const WIDGET_BASE_URL = import.meta.env.VITE_CHAT_WIDGET_URL || 'https://ax-derrick.github.io/axmed-chat-widget/';
+const WIDGET_BASE_URL = import.meta.env.VITE_CHAT_WIDGET_URL;
 
 function buildWidgetUrl() {
   const params = new URLSearchParams();
