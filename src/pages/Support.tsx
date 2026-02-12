@@ -18,9 +18,8 @@ const faqItems = [
     children: (
       <Paragraph>
         Axmed is a medicine marketplace born to accelerate access to medicines in Low- and
-        Middle-Income countries. It brings technology to the center of this global challenge through
-        demand aggregation and increased purchasing power, combining commercial innovation with
-        social impact.
+        Middle-Income countries. It brings technology to the center of this global challenge
+        through demand aggregation and increased purchasing power.
       </Paragraph>
     ),
   },
@@ -54,9 +53,9 @@ const faqItems = [
       <Paragraph>
         Our platform automatically connects suppliers with open orders that match their portfolio.
         When a match is detected, the supplier is notified and can navigate to the Open Tenders tab
-        on the Marketplace. There, they can place a bid by providing key information — such as price,
-        lead time, and shelf life — which the buyer will use to evaluate and select the most
-        promising offer.
+        on the Marketplace. There, they can place a bid by providing key information - such as
+        price, lead time, and shelf life - which the buyer will use to evaluate and select the
+        most promising offer.
       </Paragraph>
     ),
   },
@@ -76,8 +75,8 @@ const faqItems = [
     label: 'I cannot remember my password',
     children: (
       <Paragraph>
-        You can use the "Forgot password?" button on the login page. Enter your email address and
-        click submit, then enter the OTP to reset your password.
+        In that case you can use 'Forgot password?' CTA on the login page. Enter your email
+        address and click submit and then enter the OTP to be able to reset your password.
       </Paragraph>
     ),
   },
@@ -97,11 +96,12 @@ const faqItems = [
     label: "How can I see the medicines available in Axmed's portfolio?",
     children: (
       <Paragraph>
-        Axmed is a marketplace, not a supplier, and does not maintain its own stockpile of medicines.
-        You can sign up to access the platform and explore the medicine catalogue of our suppliers.
-        After submitting an order, suppliers on the platform will respond with quotes for the items
-        you've requested. If a specific medicine is not listed, you can request it to be added to the
-        catalogue.
+        Axmed is a marketplace, not a supplier, and does not maintain its own stockpile of
+        medicines. If you are a healthcare procurer, you can sign up to access the Axmed platform
+        and explore the medicine catalogue of our suppliers. After submitting an order, suppliers
+        on the platform will respond with quotes for the items you've requested. If a specific
+        medicine is not listed, you can request it to be added to the catalogue. However, if no
+        suppliers offer it, it may indicate that it's currently unavailable through the platform.
       </Paragraph>
     ),
   },
