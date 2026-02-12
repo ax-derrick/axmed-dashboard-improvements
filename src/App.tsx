@@ -24,6 +24,8 @@ import SupplierDashboard from './pages/supplier/Dashboard';
 import SupplierAnalytics from './pages/supplier/Analytics';
 import BuyerDashboard from './pages/buyer/Dashboard';
 import BuyerAnalytics from './pages/buyer/Analytics';
+import ChatWidget from './components/ChatWidget';
+import Support from './pages/Support';
 import './App.css';
 
 // Draft bids organized by tender
@@ -260,15 +262,14 @@ function AppLayout() {
           </div>
           {/* Right: Support, Draft Order, Profile */}
           <div className="buyer-header-right">
-            <a
-              href="https://form.asana.com/?k=syQQO9QJls5IRuUzlbUDTQ&d=1207382794046065"
-              target="_blank"
-              rel="noopener noreferrer"
+            <div
               className="buyer-header-link"
+              style={{ cursor: 'pointer' }}
+              onClick={() => navigate('/support?r=buyer')}
             >
               <QuestionCircleOutlined />
               <span>Support</span>
-            </a>
+            </div>
             <div className="buyer-header-link" style={{ cursor: 'pointer' }}>
               <ShoppingCartOutlined />
               <span>Draft Order</span>
@@ -305,6 +306,7 @@ function AppLayout() {
         <Routes>
           <Route path="/" element={<BuyerDashboard />} />
           <Route path="/analytics" element={<BuyerAnalytics />} />
+          <Route path="/support" element={<Support />} />
         </Routes>
       </Content>
     </Layout>
@@ -322,15 +324,14 @@ function AppLayout() {
           </div>
           {/* Right: Support, Draft Bids, Profile */}
           <div className="supplier-top-header-right">
-            <a
-              href="https://form.asana.com/?k=syQQO9QJls5IRuUzlbUDTQ&d=1207382794046065"
-              target="_blank"
-              rel="noopener noreferrer"
+            <div
               className="supplier-header-link"
+              style={{ cursor: 'pointer' }}
+              onClick={() => navigate('/support?r=supplier')}
             >
               <QuestionCircleOutlined />
               <span>Support</span>
-            </a>
+            </div>
             <div className="supplier-header-link" onClick={() => setDrawerOpen(true)} style={{ cursor: 'pointer' }}>
               <FileTextOutlined />
               <span>Draft Bids</span>
@@ -420,6 +421,7 @@ function AppLayout() {
             <Routes>
               <Route path="/" element={<SupplierDashboard />} />
               <Route path="/analytics" element={<SupplierAnalytics />} />
+              <Route path="/support" element={<Support />} />
             </Routes>
           </div>
         </Content>
@@ -602,15 +604,17 @@ function AppLayout() {
           </div>
 
           {/* Support Link */}
-          <a
-            href="https://form.asana.com/?k=syQQO9QJls5IRuUzlbUDTQ&d=1207382794046065"
-            target="_blank"
-            rel="noopener noreferrer"
+          <div
             className="sidebar-support-link"
+            style={{ cursor: 'pointer' }}
+            onClick={() => {
+              navigate(`/support?r=${userRole}`);
+              setMobileMenuOpen(false);
+            }}
           >
             <QuestionCircleOutlined />
             <span>Support</span>
-          </a>
+          </div>
 
           {/* Profile */}
           <div className="sidebar-profile">
@@ -670,6 +674,7 @@ function AppLayout() {
         </div>
       )}
       {userRole === 'buyer' ? <BuyerLayout /> : <SupplierLayout />}
+      <ChatWidget />
     </>
   );
 }

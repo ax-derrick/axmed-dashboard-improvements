@@ -2000,3 +2000,247 @@ a:has(.quickstart-card):hover {
   }
 }
 
+/* ============ CHAT WIDGET ============ */
+
+.chat-widget-button {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #392AB0;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(57, 42, 176, 0.35);
+  z-index: 1000;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.chat-widget-button:hover {
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px rgba(57, 42, 176, 0.45);
+}
+
+.chat-widget-button:active {
+  transform: scale(0.96);
+}
+
+.chat-widget-button--open {
+  background: #595959;
+  animation: none;
+}
+
+/* Pulse animation when chat is closed */
+.chat-widget-button--pulse {
+  animation: chat-widget-pulse 2s ease-in-out infinite;
+}
+
+.chat-widget-button--pulse::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  width: 14px;
+  height: 14px;
+  background: #52c41a;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+@keyframes chat-widget-pulse {
+  0%, 100% { box-shadow: 0 4px 16px rgba(57, 42, 176, 0.35); }
+  50% { box-shadow: 0 4px 24px rgba(57, 42, 176, 0.55); }
+}
+
+.chat-widget-container {
+  position: fixed;
+  bottom: 96px;
+  right: 24px;
+  width: 400px;
+  height: 600px;
+  z-index: 999;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chat-widget-container--open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.chat-widget-container--closed {
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+}
+
+.chat-widget-iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 12px;
+}
+
+/* Chat widget mobile responsive */
+@media (max-width: 768px) {
+  .chat-widget-container {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+  }
+
+  .chat-widget-iframe {
+    border-radius: 0;
+  }
+
+  .chat-widget-button {
+    bottom: 16px;
+    right: 16px;
+  }
+}
+
+/* ============ SUPPORT PAGE ============ */
+
+.support-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding-bottom: 48px;
+}
+
+/* Hero Section */
+.support-hero {
+  text-align: center;
+  padding: 48px 24px 40px;
+}
+
+.support-hero-icon {
+  font-size: 40px;
+  color: #392AB0;
+  margin-bottom: 16px;
+}
+
+.support-hero-title {
+  margin-bottom: 8px !important;
+  font-weight: 700 !important;
+}
+
+.support-hero-subtitle {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.45);
+}
+
+/* FAQ Section */
+.support-faq-section {
+  margin-bottom: 48px;
+}
+
+.support-faq-collapse {
+  background: #fff;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+}
+
+.support-faq-collapse .ant-collapse-item {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.support-faq-collapse .ant-collapse-item:last-child {
+  border-bottom: none;
+}
+
+.support-faq-collapse .ant-collapse-header {
+  font-weight: 500;
+  font-size: 15px;
+  padding: 16px 20px !important;
+  align-items: center !important;
+}
+
+.support-faq-collapse .ant-collapse-content-box {
+  padding: 8px 20px 16px !important;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.7;
+}
+
+.support-faq-collapse .ant-collapse-expand-icon {
+  color: rgba(0, 0, 0, 0.45);
+}
+
+/* Action Cards Section */
+.support-actions-section {
+  margin-bottom: 24px;
+}
+
+.support-action-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.support-action-card-link:hover {
+  text-decoration: none;
+  color: inherit;
+}
+
+.support-action-card {
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+  transition: all 0.2s ease;
+  height: 100%;
+}
+
+.support-action-card:hover {
+  border-color: #392AB0;
+  box-shadow: 0 4px 16px rgba(57, 42, 176, 0.1);
+}
+
+.support-action-icon {
+  font-size: 32px;
+  color: #392AB0;
+  margin-bottom: 12px;
+  display: block;
+}
+
+.support-action-card h5 {
+  margin-bottom: 4px !important;
+}
+
+/* Support Page Responsive */
+@media (max-width: 768px) {
+  .support-hero {
+    padding: 32px 16px 24px;
+  }
+
+  .support-hero-icon {
+    font-size: 32px;
+  }
+
+  .support-hero-title {
+    font-size: 22px !important;
+  }
+
+  .support-hero-subtitle {
+    font-size: 14px;
+  }
+
+  .support-faq-collapse .ant-collapse-header {
+    font-size: 14px;
+    padding: 14px 16px !important;
+  }
+
+  .support-action-card .ant-card-body {
+    padding: 20px 16px !important;
+  }
+}
+
